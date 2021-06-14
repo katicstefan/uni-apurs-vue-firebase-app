@@ -1,30 +1,36 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
+  <Sidenav />
   <router-view />
 </template>
 
+<script>
+import Sidenav from './components/Sidenav.vue'
+export default {
+  name: "App",
+  components: {
+    Sidenav
+  }
+}
+</script>
+
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
+  text-align: left;
+  color: #707070;
+  background-color: #f2f2f2;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  position: fixed;
+  top: 0;
+  left: 440px;
+  
+  min-width: 1440px;
+  height: 100vh;
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  padding-top: 40px;
+  padding-left: 40px;
 }
 </style>
