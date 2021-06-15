@@ -1,64 +1,44 @@
 <template>
   <div class="faculties">
     <div class="header">
-      <h1>Faculties component</h1>
-      <button>
+      <h1>Faculties</h1>
+      <button v-if="faculties.length">
         <AddCircleOutlineIcon class="md-18" />
         <span>Add new</span>
       </button>
     </div>
-    <div class="container">
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>FTN</td>
-            <td>Strazilovska bb</td>
-            <td>
-              <EditIcon class="md-24 action" />
-              <DeleteIcon class="md-24 action" />
-            </td>
-          </tr>
-          <tr>
-            <td>FTN</td>
-            <td>Strazilovska bb</td>
-            <td>
-              <EditIcon class="md-24 action" />
-              <DeleteIcon class="md-24 action" />
-            </td>
-          </tr>
-          <tr>
-            <td>FTN</td>
-            <td>Strazilovska bb</td>
-            <td>
-              <EditIcon class="md-24 action" />
-              <DeleteIcon class="md-24 action" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div v-if="error">{{ error }}</div>
+    <div v-if="faculties.length" class="container">
+      <FacultiesTable :faculties="faculties" />
+    </div>
+    <div v-else>
+      <Spinner />
     </div>
   </div>
 </template>
 
 <script>
+import getFaculties from '../composables/getFaculties'
+
+import FacultiesTable from '../components/FacultiesTable.vue'
+
 import AddCircleOutlineIcon from '../components/icons/AddCircleOutline.vue'
-import EditIcon from '../components/icons/Edit.vue'
-import DeleteIcon from '../components/icons/Delete.vue'
+import Spinner from '../components/Spinner.vue'
 
 export default {
   name: "Faculties",
   components: {
+    FacultiesTable,
     AddCircleOutlineIcon,
-    EditIcon,
-    DeleteIcon
-  }
+    Spinner
+  },
+  setup() {
+    const { faculties, error, load } = getFaculties()
+  
+    load()
+
+    return { faculties, error }
+  },
 }
 </script>
 
