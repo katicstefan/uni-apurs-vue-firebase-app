@@ -15,6 +15,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import './gvars.scss';
 #app {
   font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -28,10 +29,7 @@ export default {
   top: 0;
   left: 440px;
   
-  min-width: 1440px;
+  min-width: 1480px;
   height: 100vh;
-
-  padding-top: 40px;
-  padding-left: 40px;
 }
 </style>

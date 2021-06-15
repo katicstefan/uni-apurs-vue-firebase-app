@@ -18,35 +18,10 @@
 
 <script>
 export default {
-    name: "Sidenav"
+  name: "Sidenav"
 }
 </script>
 
 <style lang="scss">
-.sidenav {
-    width: 380px;
-    height: 100%;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #fafafa;
-    overflow-x: hidden;
-    padding: 28px 0 0 40px;
-    border-right: 20px solid #69eba1;
-    text-align: left;
-
-    a {
-        font-weight: normal;
-        color: #707070;
-        padding: 16px 0 0 0;
-        text-decoration: none;
-        font-size: 24px;
-        display: block;
-
-        &.router-link-exact-active {
-            font-weight: bold;
-        }
-    }
-}
+@import '../scss/Sidenav.scss';
 </style>

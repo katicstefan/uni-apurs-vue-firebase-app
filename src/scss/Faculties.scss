@@ -1,0 +1,97 @@
+@import '../gvars.scss';
+
+.faculties {
+  width: fit-content;
+  margin-left: 40px;
+  margin-right: 40px;
+  padding-right: 0px;
+}
+
+.container {
+  background-color:  map-get($map: $colors, $key: component-background-white);
+  border: 1px solid map-get($map: $colors, $key: border-grey);
+  border-radius: 10px;
+
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 120px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+
+  h1 {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+table {
+    border-collapse: collapse;
+}
+
+thead {
+  tr {
+    border-bottom: 2px solid map-get($map: $colors, $key: border-grey);
+    //background-color: yellow;
+  }
+
+  td, th {
+    padding-bottom: 10px;
+  }
+}
+
+tbody {  
+  tr {
+    border-bottom: 1px solid map-get($map: $colors, $key: border-grey);
+    //background-color: orange;
+  }
+
+  td, th {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 140px;
+  text-align: left;
+  }
+}
+
+.action {
+  cursor: pointer;
+
+  &:hover {
+    color: black;
+  }
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  
+  width: 120px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  color: white;
+  background-color: map-get($map: $colors, $key: primary-green);
+  box-shadow: 0px 2px 4px map-get($map: $colors, $key: border-gray);
+
+  cursor: pointer;
+
+  span {
+    font-size: 18px;
+    font-weight: normal;
+    padding: 0px 2px;
+  }
+}

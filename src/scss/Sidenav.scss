@@ -1,0 +1,28 @@
+@import '../gvars.scss';
+
+.sidenav {
+    width: 380px;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: map-get($map: $colors, $key: component-background-white);
+    overflow-x: hidden;
+    padding: 28px 0 0 40px;
+    border-right: 20px solid map-get($map: $colors, $key: primary-green);
+    text-align: left;
+
+    a {
+        font-weight: normal;
+        color: map-get($map: $colors, $key: primary-text);
+        padding: 16px 0 0 0;
+        text-decoration: none;
+        font-size: 24px;
+        display: block;
+
+        &.router-link-exact-active {
+            font-weight: bold;
+        }
+    }
+}
