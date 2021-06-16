@@ -37,7 +37,7 @@ export default {
 
     load()
 
-    console.log(departments)
+    //console.log(departments)
 
     return { departments, error }
   }
