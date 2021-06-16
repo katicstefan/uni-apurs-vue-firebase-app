@@ -3,7 +3,7 @@
 </template>
 
 <style lang="scss">
-@import '../gvars.scss';
+@import '../assets/main.scss';
 
 .spin {
   display: block;

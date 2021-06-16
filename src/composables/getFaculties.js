@@ -12,8 +12,8 @@ const getFaculties = () => {
             faculties.value = res.docs.map(doc => {
                 return {...doc.data(), id: doc.id }
             })
-        } catch(error) {
-            error.value = error.message
+        } catch(err) {
+            error.value = err.message
         }
     }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="faculties">
+  <div class="faculties content">
     <div class="header">
       <h1>Faculties</h1>
       <button v-if="faculties.length">
@@ -37,8 +37,10 @@ export default {
   
     load()
 
+    console.log(faculties)
+
     return { faculties, error }
-  },
+  }
 }
 </script>
 

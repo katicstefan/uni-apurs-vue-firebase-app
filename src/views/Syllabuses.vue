@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: "Syllabuses"
+  name: "Syllabuses"
 }
 </script>
 

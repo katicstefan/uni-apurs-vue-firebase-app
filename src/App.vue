@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import './gvars.scss';
+@import './assets/main.scss';
 #app {
   font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
