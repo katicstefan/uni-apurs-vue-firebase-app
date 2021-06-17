@@ -8,7 +8,6 @@ import Faculties from "../views/Faculties.vue";
 import Departments from "../views/Departments.vue";
 import Syllabuses from "../views/Syllabuses.vue";
 import Courses from "../views/Courses.vue";
-import Semesters from "../views/Semesters.vue";
 import Classrooms from "../views/Classrooms.vue";
 import TakesPlaceIns from "../views/TakesPlaceIns.vue";
 import Students from "../views/Students.vue";
@@ -49,11 +48,6 @@ const routes = [
     path: "/courses",
     name: "Courses",
     component: Courses,
-  },
-  {
-    path: "/semesters",
-    name: "Semesters",
-    component: Semesters,
   },
   {
     path: "/classrooms",

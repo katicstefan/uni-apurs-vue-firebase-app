@@ -13,7 +13,7 @@ import { ref } from '@vue/reactivity'
 import useRegister from '../composables/useRegister'
 
 export default {
-  setup() {
+  setup(props, context) {
     const { error, register } = useRegister()
 
     // refs
@@ -25,6 +25,7 @@ export default {
       await register(email.value, password.value, displayName.value)
       if (!error.value) {
         console.log('user registered')
+        context.emit('register')
       }
     }
 

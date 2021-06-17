@@ -37,7 +37,7 @@ export default {
   
     load()
 
-    console.log(faculties)
+    //console.log(faculties)
 
     return { faculties, error }
   }

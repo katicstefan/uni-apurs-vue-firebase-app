@@ -4,20 +4,30 @@
       <h1>Register</h1>
     </div>
     <div class="container">
-      <RegisterForm />
+      <RegisterForm @register="registerSuccesful"/>
       <p>Already have an account? <router-link :to="{ name: 'Login' }"><span>Login</span></router-link> here</p>
     </div>
   </div>
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core'
 import RegisterForm from '../components/RegisterForm.vue'
+
+import { useRouter } from 'vue-router'
 
 export default {
   name: "Register",
   components: {
     RegisterForm
+  },
+  setup() {
+    const router = useRouter()
+
+    const registerSuccesful = () => {
+      router.push({ name: 'Login' })
+    }
+
+    return { registerSuccesful }
   }
 }
 </script>

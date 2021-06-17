@@ -7,7 +7,7 @@ const getDepartments = () => {
 
   const load = async () => {
     try {
-      const res = await projectFirestore.collection('department').get()
+      const res = await projectFirestore.collection('departments').get()
       
       departments.value = res.docs.map(doc => {
         return {...doc.data(), id: doc.id}
