@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
+import { ref } from 'vue'
 import useLogin from '../composables/useLogin'
 
 export default {

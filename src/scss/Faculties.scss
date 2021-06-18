@@ -3,13 +3,12 @@
 .faculties {}
 
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 thead {
   tr {
-    border-bottom: 2px solid map-get($map: $colors, $key: border-grey);
-    //background-color: yellow;
+    border-bottom: 2px solid map-get($map: $colors, $key: border-gray);
   }
 
   td, th {
@@ -19,22 +18,13 @@ thead {
 
 tbody {  
   tr {
-    border-bottom: 1px solid map-get($map: $colors, $key: border-grey);
-    //background-color: orange;
+    border-bottom: 1px solid map-get($map: $colors, $key: border-gray);
   }
 
   td, th {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-right: 140px;
-  text-align: left;
-  }
-}
-
-.action {
-  cursor: pointer;
-
-  &:hover {
-    color: black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 140px;
+    text-align: left;
   }
 }

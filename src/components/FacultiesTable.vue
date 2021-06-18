@@ -13,7 +13,7 @@
         <td>{{ faculty.address }}</td>
         <td>
           <EditIcon @click="handleEdit" class="md-24 action" />
-          <DeleteIcon @click="handleDelete" class="md-24 action" />
+          <DeleteIcon @click="handleDelete(faculty.id)" class="md-24 action" />
         </td>
       </tr>
     </tbody>
@@ -23,6 +23,7 @@
 <script>
 import EditIcon from '../components/icons/Edit.vue'
 import DeleteIcon from '../components/icons/Delete.vue'
+import { projectFirestore } from '../firebase/config'
 
 export default {
   props: ['faculties'],
@@ -35,8 +36,8 @@ export default {
 
     }
 
-    const handleDelete = () => {
-
+    const handleDelete = async (id) => {
+      await projectFirestore.collection('faculties').doc(id).delete()
     }
 
     return { handleEdit, handleDelete}

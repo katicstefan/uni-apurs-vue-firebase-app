@@ -2,18 +2,21 @@
   <div class="faculties content">
     <div class="header">
       <h1>Faculties</h1>
-      <button v-if="faculties.length">
-        <AddCircleOutlineIcon class="md-18" />
-        <span>Add new</span>
-      </button>
+      <router-link :to="{ name: 'FacultyCreate' }" class="link">
+        <button>
+          <AddCircleOutlineIcon class="md-18" />
+          <span>Add new</span>
+        </button>
+      </router-link>
     </div>
     <div v-if="error">{{ error }}</div>
-    <div v-if="faculties.length" class="container">
-      <FacultiesTable :faculties="faculties" />
+    <div class="container">
+      <FacultiesTable :faculties="faculties" v-if="faculties.length"/>
+      <div v-else>
+        <Spinner />
+      </div>
     </div>
-    <div v-else>
-      <Spinner />
-    </div>
+    
   </div>
 </template>
 
@@ -36,8 +39,6 @@ export default {
     const { faculties, error, load } = getFaculties()
   
     load()
-
-    //console.log(faculties)
 
     return { faculties, error }
   }

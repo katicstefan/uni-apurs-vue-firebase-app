@@ -24,7 +24,7 @@ export default {
     const router = useRouter()
 
     const registerSuccesful = () => {
-      router.push({ name: 'Login' })
+      router.push({ name: 'Faculties' })
     }
 
     return { registerSuccesful }

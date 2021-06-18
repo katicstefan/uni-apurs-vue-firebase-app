@@ -5,13 +5,28 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 
 import Faculties from "../views/Faculties.vue";
+import FacultyCreate from "../views/FacultyCreate.vue";
 import Departments from "../views/Departments.vue";
+import DepartmentCreate from "../views/DepartmentCreate.vue";
 import Syllabuses from "../views/Syllabuses.vue";
 import Courses from "../views/Courses.vue";
 import Classrooms from "../views/Classrooms.vue";
 import TakesPlaceIns from "../views/TakesPlaceIns.vue";
 import Students from "../views/Students.vue";
 import Professors from "../views/Professors.vue";
+
+import { projectAuth } from '../firebase/config'
+
+// auth guard
+const requireAuth = (to, from, next) => {
+  let user = projectAuth.currentUser
+  console.log('current user in auth guard: ', user)
+  if (!user) {
+    next({ name: 'Home' })
+  } else {
+    next()
+  }
+}
 
 const routes = [
   {
@@ -35,9 +50,21 @@ const routes = [
     component: Faculties,
   },
   {
+    path: "/faculties/create",
+    name: "FacultyCreate",
+    component: FacultyCreate,
+    beforeEnter: requireAuth
+  },
+  {
     path: "/departments",
     name: "Departments",
     component: Departments,
+  },
+  {
+    path: "/departments/create",
+    name: "DepartmentCreate",
+    component: DepartmentCreate,
+    beforeEnter: requireAuth
   },
   {
     path: "/syllabuses",

@@ -2,10 +2,12 @@
   <div class="departments content">
     <div class="header">
       <h1>Departments</h1>
-      <button v-if="departments.length">
-        <AddCircleOutlineIcon class="md-18" />
-        <span>Add new</span>
-      </button>
+      <router-link :to="{ name: 'DepartmentCreate' }" class="link">
+        <button v-if="departments.length">
+          <AddCircleOutlineIcon class="md-18" />
+          <span>Add new</span>
+        </button>
+      </router-link>
     </div>
     <div v-if="error">{{ error }}</div>
     <div v-if="departments.length" class="container">
