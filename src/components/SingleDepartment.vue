@@ -1,42 +1,44 @@
 <template>
   <div class="department">
     <div class="faculty">
-      <p>{{ faculty.name }}</p>
+      <p>{{ department.faculty.name }}</p>
     </div>
     <div class="header">
       <h2>{{ department.name }}</h2>
-      <button class="action-white">
-        <DeleteIcon class="md-24"/>
+      <button @click="handleEdit(department.id)" class="action-white">
+        <EditIcon  class="md-24"/>
+      </button>
+      <button @click="handleDelete(department.id)" class="action-white">
+        <DeleteIcon  class="md-24"/>
       </button>
     </div>
-    <div v-for="syllabus in syllabuses" :key="syllabus.id" class="syllabus">
-      <p>
-        {{ syllabus.name }}
-      </p>
+    <div v-if="department.syllabuses.length">
+      <div v-for="syllabus in department.syllabuses" :key="syllabus.id" class="syllabus">
+        <p>{{ syllabus.name }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import getFaculty from '../composables/getFaculty'
-import getSyllabusesByDepartmentId from '../composables/getSyllabusesByDepartmentId'
+import { projectFirestore } from '../firebase/config'
 
+import EditIcon from '../components/icons/Edit.vue'
 import DeleteIcon from '../components/icons/Delete.vue'
 
 export default {
   props: ['department'],
   name: "SingleDepartment",
   components: {
+    EditIcon,
     DeleteIcon
   },
-  setup(props) {
-    const { faculty, error: errorFaculty, load: loadFaculty } = getFaculty(props.department.faculty.id)
-    const { syllabuses, error: errorSyllabuses, load: loadSyllabuses } = getSyllabusesByDepartmentId(props.department.id)
+  setup() {
+    const handleDelete = async (id) => {
+      await projectFirestore.collection('departments').doc(id).delete()
+    }
 
-    loadFaculty()
-    loadSyllabuses()
-
-    return { faculty, errorFaculty, syllabuses, errorSyllabuses }
+    return { handleDelete }
   }
 }
 </script>
@@ -47,7 +49,6 @@ export default {
   background-color: map-get($map: $colors, $key: background-white);
   border-radius: 10px;
   border: 1px solid #eee;
-  //padding: 40px 20px;
   padding: 20px;
   margin-bottom: 40px;
 
@@ -65,6 +66,10 @@ export default {
 
   .header {
     margin: 0;
+
+    button:first-of-type {
+      margin-right: 20px;
+    }
   }
 }
 

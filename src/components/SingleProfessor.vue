@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import getCoursesByProfessorId from '../composables/getCoursesByProfessorId'
+import getCoursesByProfessorId from '../composables/courses/getCoursesByProfessorId'
 
 export default {
   props: ['professor'],

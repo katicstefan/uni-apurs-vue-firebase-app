@@ -1,32 +1,45 @@
 <template>
   <div class="syllabus">
-    <h2>{{ syllabus.name }}</h2>
-    <div v-for="department in departments" :key="department.id" class="departments">
-      <div class="department">
-        {{ department.value.name }}
+    <div class="header">
+      <h2>{{ syllabus.name }}</h2>
+      <button @click="handleEdit(syllabus.id)" class="action-white">
+        <EditIcon class="md-24"/>
+      </button>
+      <button @click="handleDelete(syllabus.id)" class="action-white">
+        <DeleteIcon class="md-24"/>
+      </button>
+    </div>
+    <div v-if="syllabus.departments.length">
+      <div v-for="department in syllabus.departments" :key="department.id">
+        <p>{{ department.name }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import getDepartment from '../composables/getDepartment'
+import { projectFirestore } from '../firebase/config'
+
+import EditIcon from '../components/icons/Edit.vue'
+import DeleteIcon from '../components/icons/Delete.vue'
+
 export default {
   props: ['syllabus'],
-  setup(props) {
-    let departments = []
+  name: "SingleSyllabus",
+  components: {
+    EditIcon,
+    DeleteIcon
+  },
+  setup() {
+    const handleDelete = async (id) => {
+      await projectFirestore.collection('syllabuses').doc(id).delete()
+    }
 
-    props.syllabus.departments.forEach(element => {
-      const { department, error, load } = getDepartment(element.id)
-      load()
-      departments.push(department)
-    });
-
-    return { departments }
+    return { handleDelete }
   }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+@import '../assets/main.scss';
 </style>

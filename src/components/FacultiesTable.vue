@@ -21,9 +21,10 @@
 </template>
 
 <script>
+import { projectFirestore } from '../firebase/config'
+
 import EditIcon from '../components/icons/Edit.vue'
 import DeleteIcon from '../components/icons/Delete.vue'
-import { projectFirestore } from '../firebase/config'
 
 export default {
   props: ['faculties'],
@@ -40,7 +41,7 @@ export default {
       await projectFirestore.collection('faculties').doc(id).delete()
     }
 
-    return { handleEdit, handleDelete}
+    return { handleEdit, handleDelete }
   },
 }
 </script>

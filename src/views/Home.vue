@@ -11,8 +11,9 @@
         <li><h3>User registration and login system</h3></li>
         <li><h3>User profiles</h3></li>
         <li><h3>CRUD operations over a Firestore DB</h3></li>
-        <li><h3>Authorization of operations</h3></li>
-        <li><h3>Form validation and dialogs</h3></li>
+        <li><h3>Route guarding for unauthenticated users</h3></li>
+        <li><h3>Form validation</h3></li>
+        <li><h3>Realtime data listeners</h3></li>
       </ul>
     </div>
   </div>

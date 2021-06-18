@@ -17,8 +17,9 @@
 
 <script>
 import { ref } from 'vue'
-import { projectFirestore, timestamp } from '../firebase/config'
 import { useRouter } from 'vue-router'
+import { projectFirestore, timestamp } from '../firebase/config'
+
 import getUser from '../composables/getUser'
 import { watch } from '@vue/runtime-core'
 

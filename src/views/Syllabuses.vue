@@ -1,26 +1,31 @@
 <template>
-<div class="syllabuses content">
-  <div class="header">
-    <h1>Syllabuses</h1>
-    <button v-if="syllabuses.length">
-      <AddCircleOutlineIcon class="md-18" />
-    <span>Add new</span>
-    </button>
-  </div>
-  <div v-if="error">{{ error }}</div>
-    <div v-if="syllabuses.length" class="container">
-      <div v-for="syllabus in syllabuses" :key="syllabus.id">
-        <SingleSyllabus :syllabus="syllabus" />
+  <div class="syllabuses content">
+    <div class="header">
+      <h1>Syllabuses</h1>
+      <router-link :to="{ name: 'SyllabusCreate' }">
+        <button>
+          <AddCircleOutlineIcon class="md-18" />
+          <span>Add new</span>
+        </button>
+      </router-link>
+    </div>
+    <div v-if="error">{{ error }}</div>
+    <div class="container">
+      <div v-if="syllabuses.length">
+        <div v-for="syllabus in syllabuses" :key="syllabus.id">
+          <SingleSyllabus :syllabus="syllabus" />
+        </div>
+      </div>
+      <div v-else>
+        <Spinner />
       </div>
     </div>
-    <div v-else>
-      <Spinner />
-    </div>
-</div>
+      
+  </div>
 </template>
 
 <script>
-import getSyllabuses from '../composables/getSyllabuses'
+import getSyllabuses from '../composables/syllabuses/getSyllabuses'
 
 import SingleSyllabus from '../components/SingleSyllabus.vue'
 

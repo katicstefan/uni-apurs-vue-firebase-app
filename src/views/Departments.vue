@@ -3,26 +3,28 @@
     <div class="header">
       <h1>Departments</h1>
       <router-link :to="{ name: 'DepartmentCreate' }" class="link">
-        <button v-if="departments.length">
+        <button>
           <AddCircleOutlineIcon class="md-18" />
           <span>Add new</span>
         </button>
       </router-link>
     </div>
     <div v-if="error">{{ error }}</div>
-    <div v-if="departments.length" class="container">
-      <div v-for="department in departments" :key="department.id">
-        <SingleDepartment :department="department" />
+    <div class="container">
+      <div v-if="departments.length">
+        <div v-for="department in departments" :key="department.id">
+          <SingleDepartment :department="department" />
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <Spinner />
+      <div v-else>
+        <Spinner />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import getDepartments from '../composables/getDepartments'
+import getDepartments from '../composables/departments/getDepartments'
 
 import SingleDepartment from '../components/SingleDepartment.vue'
 

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import getFaculties from '../composables/getFaculties'
+import getFaculties from '../composables/faculties/getFaculties'
 
 import FacultiesTable from '../components/FacultiesTable.vue'
 

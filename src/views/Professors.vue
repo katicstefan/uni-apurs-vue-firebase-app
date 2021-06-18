@@ -2,10 +2,12 @@
   <div class="content">
     <div class="header">
       <h1>Professors</h1>
-      <button>
-        <AddCircleOutlineIcon class="md-18"/>
-        <span>Add new</span>
-      </button>
+      <router-link :to="{ name: 'ProfessorCreate' }">
+        <button>
+          <AddCircleOutlineIcon class="md-18"/>
+          <span>Add new</span>
+        </button>
+      </router-link>
     </div>
     <div v-if="error">{{ error }}</div>
     <div v-if="true" class="container">
@@ -20,7 +22,7 @@
 </template>
 
 <script>
-import getProfessors from '../composables/getProfessors'
+import getProfessors from '../composables/professors/getProfessors'
 
 import SingleProfessor from '../components/SingleProfessor.vue'
 
