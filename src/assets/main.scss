@@ -8,9 +8,7 @@ $colors: (
 
 .content {
   width: fit-content;
-  margin-left: 40px;
-  margin-right: 40px;
-  padding-right: 0px;
+  margin: 40px;
 }
 
 .header {
@@ -19,12 +17,18 @@ $colors: (
   justify-content: space-between;
   margin-top: 120px;
   margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
 
   h1 {
-      margin: 0;
-      padding: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .actions {
+    button:first-of-type {
+      margin-right: 20px;
+    }
   }
 }
 
@@ -140,6 +144,11 @@ button {
   &:hover {
     color: white;
   }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
 }
 
 

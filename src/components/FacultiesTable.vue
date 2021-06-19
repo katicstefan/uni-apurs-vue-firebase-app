@@ -12,7 +12,7 @@
         <td>{{ faculty.name }}</td>
         <td>{{ faculty.address }}</td>
         <td>
-          <EditIcon @click="handleEdit" class="md-24 action" />
+          <EditIcon @click="handleEdit(faculty.id)" class="md-24 action" />
           <DeleteIcon @click="handleDelete(faculty.id)" class="md-24 action" />
         </td>
       </tr>
@@ -21,7 +21,9 @@
 </template>
 
 <script>
-import { projectFirestore } from '../firebase/config'
+import { useRouter } from 'vue-router'
+
+import useDocument from '@/composables/useDocument'
 
 import EditIcon from '../components/icons/Edit.vue'
 import DeleteIcon from '../components/icons/Delete.vue'
@@ -33,12 +35,15 @@ export default {
     DeleteIcon
   },
   setup() {
-    const handleEdit = () => {
+    const router = useRouter()
 
+    const handleEdit = async (id) => {
+      router.push({ name: 'FacultyEdit', params: { id } })
     }
 
     const handleDelete = async (id) => {
-      await projectFirestore.collection('faculties').doc(id).delete()
+      const { deleteDoc } = useDocument('faculties', id)
+      await deleteDoc()
     }
 
     return { handleEdit, handleDelete }
@@ -46,6 +51,6 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+@import '@/assets/main.scss';
 </style>

@@ -1,6 +1,8 @@
 <template>
   <Sidenav />
-  <router-view />
+  <div class="app">
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -25,11 +27,17 @@ export default {
   color: #707070;
   background-color: #f2f2f2;
 
-  position: fixed;
   top: 0;
-  left: 440px;
-  
-  min-width: 1480px;
-  height: 100vh;
+  left: 0;
+  position: absolute;
+
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+
+  .app {
+    max-width: 100%;
+    margin-left: 440px;
+  }
 }
 </style>

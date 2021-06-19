@@ -11,7 +11,7 @@
     </div>
     <div v-if="error">{{ error }}</div>
     <div class="container">
-      <FacultiesTable :faculties="faculties" v-if="faculties.length"/>
+      <FacultiesTable :faculties="faculties" v-if="faculties"/>
       <div v-else>
         <Spinner />
       </div>
@@ -21,12 +21,12 @@
 </template>
 
 <script>
-import getFaculties from '../composables/faculties/getFaculties'
+import getCollection from '@/composables/getCollection'
 
-import FacultiesTable from '../components/FacultiesTable.vue'
+import FacultiesTable from '@/components/FacultiesTable.vue'
 
-import AddCircleOutlineIcon from '../components/icons/AddCircleOutline.vue'
-import Spinner from '../components/Spinner.vue'
+import AddCircleOutlineIcon from '@/components/icons/AddCircleOutline.vue'
+import Spinner from '@/components/Spinner.vue'
 
 export default {
   name: "Faculties",
@@ -36,9 +36,7 @@ export default {
     Spinner
   },
   setup() {
-    const { faculties, error, load } = getFaculties()
-  
-    load()
+    const { error, documents: faculties } = getCollection('faculties')
 
     return { faculties, error }
   }
@@ -46,5 +44,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../scss/Faculties.scss';
+@import '@/scss/Faculties.scss';
 </style>

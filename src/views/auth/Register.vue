@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import RegisterForm from '../components/RegisterForm.vue'
+import RegisterForm from '../../components/RegisterForm.vue'
 
 import { useRouter } from 'vue-router'
 

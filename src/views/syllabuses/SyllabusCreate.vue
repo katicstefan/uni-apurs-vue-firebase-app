@@ -21,12 +21,13 @@
 <script>
 import { ref } from '@vue/reactivity'
 import { useRouter } from 'vue-router'
-import { projectFirestore, timestamp } from '../firebase/config'
+import { timestamp } from '../../firebase/config'
 
-import getUser from '../composables/getUser'
+import getUser from '../../composables/getUser'
 import { watch } from '@vue/runtime-core'
 
-import getDepartments from '../composables/departments/getDepartments'
+import getCollection from '@/composables/getCollection'
+import useCollection from '@/composables/useCollection'
 
 export default {
   name: "SyllabusCreate",
@@ -42,25 +43,37 @@ export default {
       }
     })
 
-    const { departments, error, load } = getDepartments()
+    const { addDoc: addSyllabusDoc, error: errorSyllabus, isPending } = useCollection('syllabuses')
 
-    load()
+    const { documents: departments, error: errorDepartments } = getCollection('departments')
 
     const name = ref('')
     const selectedDepartments = ref([])
 
     const handleSubmit = async () => {
+      let formattedDepartments = []
+
+      selectedDepartments.value.forEach(element => {
+        formattedDepartments.push({ id: element.id, name: element.name, createdAt: element.createdAt })
+      })
+
       const syllabus = {
         name: name.value,
-        departments: selectedDepartments.value,
-        createdAt: timestamp()
+        departments: formattedDepartments,
+        createdAt: timestamp(),
+        createdByUserId: user.value.uid,
+        createdBy: user.value.displayName
       }
-      const res = await projectFirestore.collection('syllabuses').add(syllabus)
-
-      router.push({ name: 'Syllabuses' })
+      isPending.value = true
+      const res = await addSyllabusDoc(syllabus)
+      isPending.value = false
+      if (!errorSyllabus.value) {
+        // TODO: update departments with syllabus.id
+        router.push({ name: 'Syllabuses' })
+      }
     }
 
-    return { departments, error, name, selectedDepartments, handleSubmit }
+    return { departments, errorDepartments, name, selectedDepartments, handleSubmit, isPending }
   }
 }
 </script>

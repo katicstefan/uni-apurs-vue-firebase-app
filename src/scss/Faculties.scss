@@ -1,7 +1,5 @@
 @import '../assets/main.scss';
 
-.faculties {}
-
 table {
   border-collapse: collapse;
 }
@@ -19,6 +17,12 @@ thead {
 tbody {  
   tr {
     border-bottom: 1px solid map-get($map: $colors, $key: border-gray);
+    transition: all ease 0.2s;
+
+    &:hover {
+      transform: scale(1.02);
+      transition: all ease 0.2s;
+    }
   }
 
   td, th {
@@ -26,5 +30,10 @@ tbody {
     padding-bottom: 20px;
     padding-right: 140px;
     text-align: left;
+
+    a {
+      text-decoration: none;
+      color: map-get($map: $colors, $key: primary-text);
+    }
   }
 }

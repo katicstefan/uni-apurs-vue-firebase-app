@@ -11,7 +11,7 @@
     </div>
     <div v-if="error">{{ error }}</div>
     <div class="container">
-      <div v-if="syllabuses.length">
+      <div v-if="syllabuses">
         <div v-for="syllabus in syllabuses" :key="syllabus.id">
           <SingleSyllabus :syllabus="syllabus" />
         </div>
@@ -25,12 +25,12 @@
 </template>
 
 <script>
-import getSyllabuses from '../composables/syllabuses/getSyllabuses'
+import getCollection from '@/composables/getCollection'
 
-import SingleSyllabus from '../components/SingleSyllabus.vue'
+import SingleSyllabus from '../../components/SingleSyllabus.vue'
 
-import AddCircleOutlineIcon from '../components/icons/AddCircleOutline.vue'
-import Spinner from '../components/Spinner.vue'
+import AddCircleOutlineIcon from '../../components/icons/AddCircleOutline.vue'
+import Spinner from '../../components/Spinner.vue'
 
 export default {
   name: "Syllabuses",
@@ -40,15 +40,13 @@ export default {
     Spinner
   },
   setup() {
-    const { syllabuses, error, load } = getSyllabuses()
-
-    load()
+    const { documents: syllabuses, error } = getCollection('syllabuses')
 
     return { syllabuses, error }
   }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+@import '@/scss/Syllabuses.scss';
 </style>

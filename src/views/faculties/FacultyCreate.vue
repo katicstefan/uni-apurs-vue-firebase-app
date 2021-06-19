@@ -9,7 +9,8 @@
         <input v-model="name" type="text" required>
         <label>Address</label>
         <input v-model="address" type="text" required>
-        <button>Submit</button>
+        <button v-if="!isPending">Submit</button>
+        <button v-else disabled>Saving...</button>
       </form>
     </div>
   </div>
@@ -18,10 +19,12 @@
 <script>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { projectFirestore, timestamp } from '../firebase/config'
+import { timestamp } from '../../firebase/config'
 
-import getUser from '../composables/getUser'
+import getUser from '../../composables/getUser'
 import { watch } from '@vue/runtime-core'
+
+import useCollection from '@/composables/useCollection'
 
 export default {
   setup() {
@@ -35,6 +38,8 @@ export default {
       }
     })
 
+    const { error, addDoc, isPending } = useCollection('faculties')
+
     const name = ref('')
     const address = ref('')
 
@@ -42,22 +47,26 @@ export default {
       const faculty = {
         name: name.value,
         address: address.value,
-        createdAt: timestamp()
+        createdAt: timestamp(),
+        createdByUserId: user.value.uid,
+        createdBy: user.value.displayName
       }
 
-      const res = await projectFirestore.collection('faculties').add(faculty)
-
-      router.push({ name: 'Faculties' })
+      isPending.value = true
+      const res = await addDoc(faculty)
+      isPending.value = false
+      if (!error.value) {
+        router.push({ name: 'Faculties' })
+      }
     }
     
-
-    return { name, address, handleSubmit }
+    return { name, address, handleSubmit, isPending }
   }
 }
 </script>
 
 <style lang="scss">
-@import '../assets/main.scss';
+@import '@/assets/main.scss';
 
 form {
   max-width: 480px;

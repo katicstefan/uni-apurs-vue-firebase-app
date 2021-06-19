@@ -11,7 +11,7 @@
     </div>
     <div v-if="error">{{ error }}</div>
     <div class="container">
-      <div v-if="departments.length">
+      <div v-if="departments">
         <div v-for="department in departments" :key="department.id">
           <SingleDepartment :department="department" />
         </div>
@@ -24,12 +24,12 @@
 </template>
 
 <script>
-import getDepartments from '../composables/departments/getDepartments'
+import getCollection from '@/composables/getCollection'
 
-import SingleDepartment from '../components/SingleDepartment.vue'
+import SingleDepartment from '../../components/SingleDepartment.vue'
 
-import AddCircleOutlineIcon from '../components/icons/AddCircleOutline.vue'
-import Spinner from '../components/Spinner.vue'
+import AddCircleOutlineIcon from '../../components/icons/AddCircleOutline.vue'
+import Spinner from '../../components/Spinner.vue'
 
 export default {
   name: "Departments",
@@ -39,9 +39,7 @@ export default {
     Spinner
   },
   setup() {
-    const { departments, error, load } = getDepartments()
-
-    load()
+    const { documents: departments, error } = getCollection('departments')
 
     return { departments, error }
   }
@@ -49,5 +47,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../scss/Departments.scss';
+@import '@/scss/Departments.scss';
 </style>

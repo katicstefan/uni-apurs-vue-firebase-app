@@ -4,7 +4,8 @@
     <input type="email" required placeholder="email" v-model="email">
     <input type="password" required placeholder="password" v-model="password">
     <div class="error">{{ error }}</div>
-    <button>Register</button>
+    <button v-if="!isPending">Register</button>
+    <button v-else disabled>Loading...</button>
   </form>
 </template>
 
@@ -14,7 +15,7 @@ import useRegister from '../composables/useRegister'
 
 export default {
   setup(props, context) {
-    const { error, register } = useRegister()
+    const { error, register, isPending } = useRegister()
 
     // refs
     const displayName = ref('')
@@ -22,14 +23,14 @@ export default {
     const password = ref('')
 
     const handleSubmit = async () => {
-      await register(email.value, password.value, displayName.value)
+      const res = await register(email.value, password.value, displayName.value)
       if (!error.value) {
         console.log('user registered')
         context.emit('register')
       }
     }
 
-    return { displayName, email, password, handleSubmit, error }
+    return { displayName, email, password, handleSubmit, error, isPending }
   }
 }
 </script>

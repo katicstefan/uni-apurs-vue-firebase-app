@@ -3,7 +3,8 @@
     <input type="email" required placeholder="email" v-model="email">
     <input type="password" required placeholder="password" v-model="password">
     <div class="error">{{ error }}</div>
-    <button>Login</button>
+    <button v-if="!isPending">Login</button>
+    <button v-else disablend>Loading...</button>
   </form>
 </template>
 
@@ -17,17 +18,17 @@ export default {
     const email = ref('')
     const password = ref('')
 
-    const { error, login } = useLogin()
+    const { error, login, isPending } = useLogin()
 
     const handleSubmit = async () => {
-      await login(email.value, password.value)
+      const res = await login(email.value, password.value)
       if (!error.value) {
         console.log('user logged in')
         context.emit('login')
       }
     }
 
-    return { email, password, handleSubmit, error }
+    return { email, password, handleSubmit, error, isPending }
   }
 }
 </script>

@@ -2,17 +2,18 @@ import { createRouter, createWebHistory } from "vue-router";
 // Views
 import Home from "../views/Home.vue";
 
-import Login from "../views/Login.vue";
-import Register from "../views/Register.vue";
+import Login from "../views/auth/Login.vue";
+import Register from "../views/auth/Register.vue";
 
-import Faculties from "../views/Faculties.vue";
-import FacultyCreate from "../views/FacultyCreate.vue";
+import Faculties from "../views/faculties/Faculties.vue";
+import FacultyCreate from "../views/faculties/FacultyCreate.vue";
+import FacultyEdit from "../views/faculties/FacultyEdit.vue";
 
-import Departments from "../views/Departments.vue";
-import DepartmentCreate from "../views/DepartmentCreate.vue";
+import Departments from "../views/departments/Departments.vue";
+import DepartmentCreate from "../views/departments/DepartmentCreate.vue";
 
-import Syllabuses from "../views/Syllabuses.vue";
-import SyllabusCreate from "../views/SyllabusCreate.vue";
+import Syllabuses from "../views/syllabuses/Syllabuses.vue";
+import SyllabusCreate from "../views/syllabuses/SyllabusCreate.vue";
 
 import Courses from "../views/Courses.vue";
 import CourseCreate from "../views/CourseCreate.vue";
@@ -35,8 +36,16 @@ import { projectAuth } from '../firebase/config'
 // auth guard
 const requireAuth = (to, from, next) => {
   let user = projectAuth.currentUser
-  console.log('current user in auth guard: ', user)
   if (!user) {
+    next({ name: 'Login' })
+  } else {
+    next()
+  }
+}
+
+const requireNoAuth = (to, from, next) => {
+  let user = projectAuth.currentUser
+  if (user) {
     next({ name: 'Home' })
   } else {
     next()
@@ -53,11 +62,13 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+    beforeEnter: requireNoAuth
   },
   {
     path: "/register",
     name: "Register",
     component: Register,
+    beforeEnter: requireNoAuth
   },
   {
     path: "/faculties",
@@ -68,6 +79,13 @@ const routes = [
     path: "/faculties/create",
     name: "FacultyCreate",
     component: FacultyCreate,
+    beforeEnter: requireAuth
+  },
+  {
+    path: "/faculties/:id/edit",
+    name: "FacultyEdit",
+    component: FacultyEdit,
+    props: true,
     beforeEnter: requireAuth
   },
   {

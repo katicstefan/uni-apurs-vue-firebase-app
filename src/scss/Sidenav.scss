@@ -3,13 +3,19 @@
 .sidenav {
     width: 380px;
     height: 100%;
+
+    margin: 0;
+    padding: 28px 0 0 40px;
+
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
+
+    overflow: auto;
+
     background-color: map-get($map: $colors, $key: component-background-white);
-    overflow-x: hidden;
-    padding: 28px 0 0 40px;
+    
     border-right: 20px solid map-get($map: $colors, $key: primary-green);
     text-align: left;
 
