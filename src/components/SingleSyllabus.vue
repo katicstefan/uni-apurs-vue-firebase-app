@@ -20,10 +20,13 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
+
 import { projectFirestore } from '../firebase/config'
 
 import EditIcon from '../components/icons/Edit.vue'
 import DeleteIcon from '../components/icons/Delete.vue'
+import useDocument from '../composables/useDocument'
 
 export default {
   props: ['syllabus'],
@@ -32,12 +35,33 @@ export default {
     EditIcon,
     DeleteIcon
   },
-  setup() {
+  setup(props) {
+    const router = useRouter()
+
     const handleDelete = async (id) => {
       await projectFirestore.collection('syllabuses').doc(id).delete()
+
+      props.syllabus.departments.forEach(async(element) => {
+        const getDepartment = await projectFirestore.collection('departments').doc(element.id).get()
+        const { updateDoc: updateDepartment } = useDocument('departments', element.id)
+
+        let _department = { ...getDepartment.data(), id: element.id}
+        _department.syllabuses.forEach((syl, index, object) => {
+          if (syl.id === id) {
+            console.log('match')
+            object.splice(index, 1)
+          }
+        });
+
+        await updateDepartment(_department)
+      });
     }
 
-    return { handleDelete }
+    const handleEdit = async (id) => {
+      router.push({ name: 'SyllabusEdit', params: { id } })
+    }
+
+    return { handleDelete, handleEdit }
   }
 }
 </script>

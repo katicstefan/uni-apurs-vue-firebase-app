@@ -13,12 +13,12 @@
             {{ faculty.name }}
           </option>
         </select>
-        <label>Syllabuses</label>
+        <!-- <label>Syllabuses</label>
         <select v-model="selectedSyllabuses" multiple>
           <option v-for="syllabus in syllabuses" :key="syllabus.id" :value="syllabus">
             {{ syllabus.name }}
           </option>
-        </select>
+        </select> -->
         <button v-if="!isPending">Submit</button>
         <button v-else>Saving...</button>
       </form>

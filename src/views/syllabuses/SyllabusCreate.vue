@@ -21,13 +21,15 @@
 <script>
 import { ref } from '@vue/reactivity'
 import { useRouter } from 'vue-router'
-import { timestamp } from '../../firebase/config'
+import { projectFirestore, timestamp } from '../../firebase/config'
 
 import getUser from '../../composables/getUser'
 import { watch } from '@vue/runtime-core'
 
 import getCollection from '@/composables/getCollection'
 import useCollection from '@/composables/useCollection'
+import useDocument from '../../composables/useDocument'
+import getDocument from '../../composables/getDocument'
 
 export default {
   name: "SyllabusCreate",
@@ -66,9 +68,23 @@ export default {
       }
       isPending.value = true
       const res = await addSyllabusDoc(syllabus)
-      isPending.value = false
+      isPending.value = false        
+      
+      const { document: getCreatedSyllabus } = getDocument('syllabuses', res.id)
       if (!errorSyllabus.value) {
         // TODO: update departments with syllabus.id
+
+        selectedDepartments.value.forEach(async (dep) => {
+          const { updateDoc: updateDepartment } = useDocument('departments', dep.id)
+
+          let newSyllabuses = [...dep.syllabuses]
+          let newSyllabus = {...syllabus, id: res.id}
+          delete newSyllabus.departments
+          delete newSyllabus.createdAt
+          
+          newSyllabuses.push(newSyllabus)
+          await updateDepartment({ "syllabuses": newSyllabuses })
+        })
         router.push({ name: 'Syllabuses' })
       }
     }

@@ -11,9 +11,11 @@ import FacultyEdit from "../views/faculties/FacultyEdit.vue";
 
 import Departments from "../views/departments/Departments.vue";
 import DepartmentCreate from "../views/departments/DepartmentCreate.vue";
+import DepartmentEdit from "../views/departments/DepartmentEdit.vue";
 
 import Syllabuses from "../views/syllabuses/Syllabuses.vue";
 import SyllabusCreate from "../views/syllabuses/SyllabusCreate.vue";
+import SyllabusEdit from "../views/syllabuses/SyllabusEdit.vue";
 
 import Courses from "../views/Courses.vue";
 import CourseCreate from "../views/CourseCreate.vue";
@@ -100,6 +102,13 @@ const routes = [
     beforeEnter: requireAuth
   },
   {
+    path: "/departments/:id/edit",
+    name: "DepartmentEdit",
+    component: DepartmentEdit,
+    props: true,
+    beforeEnter: requireAuth
+  },
+  {
     path: "/syllabuses",
     name: "Syllabuses",
     component: Syllabuses,
@@ -108,6 +117,13 @@ const routes = [
     path: "/syllabuses/create",
     name: "SyllabusCreate",
     component: SyllabusCreate,
+    beforeEnter: requireAuth
+  },
+  {
+    path: "/syllabuses/:id/edit",
+    name: "SyllabusEdit",
+    component: SyllabusEdit,
+    props: true,
     beforeEnter: requireAuth
   },
   {

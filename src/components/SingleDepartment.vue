@@ -7,10 +7,10 @@
       <h2>{{ department.name }}</h2>
       <div class="actions">
         <button @click="handleEdit(department.id)" class="action-white">
-          <EditIcon  class="md-24"/>
+          <EditIcon class="md-24"/>
         </button>
         <button @click="handleDelete(department.id)" class="action-white">
-          <DeleteIcon  class="md-24"/>
+          <DeleteIcon class="md-24"/>
         </button>
       </div>
     </div>
@@ -23,10 +23,15 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
+
 import { projectFirestore } from '../firebase/config'
 
 import EditIcon from '../components/icons/Edit.vue'
 import DeleteIcon from '../components/icons/Delete.vue'
+
+import getDocument from '../composables/getDocument'
+import useDocument from '../composables/useDocument'
 
 export default {
   props: ['department'],
@@ -35,12 +40,33 @@ export default {
     EditIcon,
     DeleteIcon
   },
-  setup() {
+  setup(props) {
+    const router = useRouter()
+
     const handleDelete = async (id) => {
       await projectFirestore.collection('departments').doc(id).delete()
+
+      props.department.syllabuses.forEach(async(element) => {
+        const getSyllabus = await projectFirestore.collection('syllabuses').doc(element.id).get()
+        const { updateDoc: updateSyllabus } = useDocument('syllabuses', element.id)
+
+        let _syllabus = { ...getSyllabus.data(), id: element.id}
+        _syllabus.departments.forEach((dep, index, object) => {
+          if (dep.id === id) {
+            console.log('match')
+            object.splice(index, 1)
+          }
+        });
+
+        await updateSyllabus(_syllabus)
+      });
     }
 
-    return { handleDelete }
+    const handleEdit = async (id) => {
+      router.push({ name: 'DepartmentEdit', params: { id } })
+    }
+
+    return { handleDelete, handleEdit }
   }
 }
 </script>
